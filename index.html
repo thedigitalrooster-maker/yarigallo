@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-/* yarigallo v1.2 — Mobile-first visual system. No fixed-width horizontal layouts. */
+/* yarigallo v1.3 — Mobile-first visual system. No fixed-width horizontal layouts. */
 :root{--night:#070b11;--navy:#0b1420;--surface:#101d2d;--ink:#f2f5fa;--muted:#a8b7cb;--blue:#2376f5;--ice:#7dcfff;--line:rgba(155,189,226,.18);--max:1180px}
 *,*::before,*::after{box-sizing:border-box}
 html{width:100%;max-width:100%;overflow-x:hidden;scroll-behavior:smooth;scroll-padding-top:82px;overscroll-behavior-x:none}
@@ -55,6 +55,55 @@ dialog{padding:0;max-width:min(570px,calc(100% - 24px));width:100%;max-height:mi
 @media (min-width:1050px){.header-inner{height:80px}.desktop-nav{display:flex;gap:24px;margin-left:auto;margin-right:27px}.desktop-nav a{font-size:13px;color:#aabbcf;transition:color .2s}.desktop-nav a:hover{color:#7fcfff}.header-contact{display:inline-flex;gap:18px;border:1px solid #3c74b8;background:#122c50;border-radius:7px;padding:11px 16px;font-size:13px;font-weight:700}.header-contact span{color:#7bd3ff}.menu-btn,.mobile-menu{display:none!important}.hero{min-height:720px}.hero-art{height:520px}.art-float-one{left:-2px}.art-float-two{right:-2px}.strip-tail{margin-left:auto;display:block;color:#538cb9;font:700 9px 'Space Grotesk',sans-serif;letter-spacing:1px}.strip-tail span{font-size:16px;margin-left:14px;color:#7bbff8}}
 @media (max-width:359px){.container{width:calc(100% - 28px)}.brand{font-size:26px}.hero h1{font-size:43px}.hero-art{height:250px}.overline{letter-spacing:.8px}.art-float{font-size:8px}.service-card{padding:21px}.strip-inner>span{font-size:9px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .reveal{opacity:1!important;transform:none!important;transition:none!important}.btn,.work-card,.service-card,.menu-btn span{transition:none!important}}
+
+
+/* yarigallo v1.3 — deliberate premium motion without layout shifts */
+@media (prefers-reduced-motion: no-preference) {
+  html.js.motion-enhanced .reveal:not(.is-visible) {
+    opacity:0; transform:none; translate:0 16px; filter:blur(2px);
+    transition:opacity .65s cubic-bezier(.2,.7,.2,1),translate .65s cubic-bezier(.2,.7,.2,1),filter .65s ease;
+  }
+  html.js.motion-enhanced .reveal.is-visible {
+    opacity:1; transform:none; translate:0 0; filter:blur(0);
+    transition:opacity .65s cubic-bezier(.2,.7,.2,1),translate .65s cubic-bezier(.2,.7,.2,1),filter .65s ease;
+  }
+  html.js.motion-enhanced .service-grid > .reveal:nth-child(2),
+  html.js.motion-enhanced .work-grid > .reveal:nth-child(2) {transition-delay:70ms;}
+  html.js.motion-enhanced .service-grid > .reveal:nth-child(3),
+  html.js.motion-enhanced .work-grid > .reveal:nth-child(3) {transition-delay:115ms;}
+  html.js.motion-enhanced .service-grid > .reveal:nth-child(4),
+  html.js.motion-enhanced .work-grid > .reveal:nth-child(4) {transition-delay:155ms;}
+}
+/* Fine pointer only; 2–3° depth effect, never a text-obscuring flip */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .service-card,.work-card {
+    position:relative;transform-style:preserve-3d;
+    transition:transform .26s cubic-bezier(.2,.7,.2,1),border-color .25s ease,box-shadow .3s ease;
+  }
+  html.js.motion-enhanced .service-card.is-visible:hover,
+  html.js.motion-enhanced .work-card.is-visible:hover,
+  html.js.motion-enhanced .service-card.is-visible:focus-within,
+  html.js.motion-enhanced .work-card.is-visible:focus-within {
+    transform:perspective(1100px) rotateX(var(--turn-x,0deg)) rotateY(var(--turn-y,0deg)) translateY(-5px);
+    box-shadow:0 24px 46px #0005,0 0 28px #185cbe21;border-color:#568dca;
+  }
+  .work-card .work-art {transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .5s ease;transform-origin:center;}
+  .work-card:hover .work-art {transform:perspective(1000px) rotateY(-4deg) scale(1.018);filter:brightness(1.08);}
+  .service-card .service-symbol,.service-card .service-visual {transition:transform .45s cubic-bezier(.2,.7,.2,1);}
+  .service-card:hover .service-symbol,.service-card:hover .service-visual {transform:translateY(-3px);}
+  .hero-art .art-grid {animation:yg-grid-drift 36s linear infinite alternate;}
+  @keyframes yg-grid-drift {to {background-position:32px 16px;}}
+}
+.yg-reading-progress {position:fixed;top:0;left:0;height:2px;width:100%;z-index:250;background:linear-gradient(90deg,#2475f7,#7bd5ff);transform:scaleX(0);transform-origin:0 50%;pointer-events:none;opacity:.82;}
+@media (max-width:819px) {
+  html.js.motion-enhanced .reveal:not(.is-visible) {translate:0 9px;filter:none;}
+  html.js.motion-enhanced .reveal.is-visible {filter:none;}
+}
+@media (prefers-reduced-motion:reduce) {
+  html.js.motion-enhanced .reveal,html.js.motion-enhanced .reveal:not(.is-visible) {opacity:1!important;translate:none!important;filter:none!important;transform:none!important;transition:none!important;}
+  .service-card,.work-card,.work-art,.art-grid {animation:none!important;transition:none!important;transform:none!important;}
+  .yg-reading-progress {transition:none!important;}
+}
 
 </style>
   
@@ -243,6 +292,50 @@ form.addEventListener('submit', event => {
   status.textContent = 'Si aprirà il programma email: completa l’invio del messaggio per trasmettere la richiesta.';
   location.href = 'mailto:' + CONTACT.email + '?subject=' + encodeURIComponent('Richiesta appuntamento — yarigallo') + '&body=' + encodeURIComponent(fields);
 });
+
+
+/* yarigallo v1.3 — motion enhancement; pointer effects never run on touch */
+(function initYGRefinedMotion(){
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(!reduced.matches && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('motion-enhanced');
+  }
+  const progress=document.createElement('div');
+  progress.className='yg-reading-progress';
+  progress.setAttribute('aria-hidden','true');
+  document.body.appendChild(progress);
+  let ticking=false;
+  function paintProgress(){
+    const available=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+    progress.style.transform='scaleX('+Math.max(0,Math.min(1,window.scrollY/available))+')';
+    ticking=false;
+  }
+  function scheduleProgress(){if(!ticking){ticking=true;requestAnimationFrame(paintProgress);}}
+  window.addEventListener('scroll',scheduleProgress,{passive:true});
+  window.addEventListener('resize',scheduleProgress,{passive:true});
+  scheduleProgress();
+  if(reduced.matches || !window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  document.querySelectorAll('.service-card,.work-card').forEach(card=>{
+    let scheduled=false,x=0,y=0;
+    card.addEventListener('pointermove',e=>{
+      const rect=card.getBoundingClientRect();
+      if(!rect.width||!rect.height)return;
+      x=(.5-(e.clientY-rect.top)/rect.height)*4.8;
+      y=((e.clientX-rect.left)/rect.width-.5)*4.8;
+      if(scheduled)return;
+      scheduled=true;
+      requestAnimationFrame(()=>{
+        card.style.setProperty('--turn-x',x.toFixed(2)+'deg');
+        card.style.setProperty('--turn-y',y.toFixed(2)+'deg');
+        scheduled=false;
+      });
+    },{passive:true});
+    card.addEventListener('pointerleave',()=>{
+      card.style.removeProperty('--turn-x');
+      card.style.removeProperty('--turn-y');
+    });
+  });
+})();
 
 </script>
 </body>
