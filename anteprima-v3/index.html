@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090D13">
 <meta name="robots" content="noindex,nofollow">
-<script>try{if(!location.hash&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!sessionStorage.getItem("yg_intro_v31")){document.documentElement.classList.add("intro-active")}}catch(e){}</script>
 <meta name="description" content="yarigallo — Christian Yari Gallo. Tecnologia semplice, AI applicata, software, hardware e formazione per imprese ed enti.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="yarigallo. — Tecnologia semplice, soluzioni concrete">
@@ -190,19 +189,23 @@ dialog::backdrop{background:#01050bba;backdrop-filter:blur(6px)}
 @media(max-width:450px){:root{--gutter:19px}.hero h1{font-size:clamp(51px,13vw,62px)}.hero-name-bottom{white-space:normal}.hero-label .overline{font-size:9px}.hero-headline p{font-size:16px}.hero-buttons{display:grid}.btn{width:100%}.hero-meta{font-size:9px}.section{padding-block:78px}.section-heading{font-size:clamp(45px,12vw,58px)}.skill{grid-template-columns:28px minmax(0,1fr) 18px;gap:12px}.skill h3{font-size:29px}.skill p{grid-column:2;grid-row:2;font-size:13px}.skill .arrow{grid-column:3;grid-row:1}.ai-diagram{padding:15px;min-height:445px}.flow-box b{font-size:14px}.project{grid-template-columns:36px 1fr}.project h3{font-size:31px}.project-visual{grid-column:2}.moment{grid-template-columns:60px 1fr;gap:10px}.contact-title{font-size:clamp(54px,14vw,75px)}.contact-actions{width:100%}.contact-actions .btn{width:100%}.contact-sub p{font-size:16px}.footer{font-size:10px;gap:15px}dialog{padding:22px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.motion .reveal{opacity:1;transform:none;transition:none}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-/* motion-v31: expressive but restrained transitions, inspired by a real motion-first portfolio */
+/* motion-v32: expressive but restrained transitions, inspired by a real motion-first portfolio */
 :root {--ease-out:cubic-bezier(.18,.82,.18,1);--ease-spring:cubic-bezier(.15,.95,.24,1.04)}
-.boot-screen{display:none;position:fixed;inset:0;z-index:120;background:#090D13;color:var(--ink);}
-.intro-active .boot-screen{display:grid;align-items:center;justify-items:center}
-.boot-in{width:min(780px,calc(100% - 48px));display:flex;flex-direction:column;gap:20px}
-.boot-caption,.boot-foot{font:500 11px 'Space Grotesk',Arial,sans-serif;letter-spacing:.19em;display:flex;justify-content:space-between;align-items:center;color:#8FA8C4;text-transform:uppercase}
-.boot-word{font:600 clamp(48px,9.5vw,118px)/.95 'Space Grotesk',sans-serif;letter-spacing:-.075em;margin:clamp(25px,6vw,90px) 0;}
-.boot-word i{color:var(--blue);font-style:normal}
-.boot-bar{height:2px;width:100%;background:#263448;overflow:hidden}
-.boot-fill{height:100%;width:0;background:var(--blue);box-shadow:0 0 20px #5dabff55;transition:width .18s linear}
-.boot-foot{gap:20px}.boot-foot span{font-variant-numeric:tabular-nums;color:#EAF4FF}
-.boot-screen.is-leaving{animation:bootLeave .72s var(--ease-out) forwards;pointer-events:none}
-@keyframes bootLeave{to{opacity:0;transform:translateY(-4%);visibility:hidden}}
+/* Homepage signature: original intro motion now lives inside the hero, always present. */
+.hero-system{position:relative;min-width:0;margin:0 0 27px;padding:24px 0 29px;border-top:1px solid #304054;border-bottom:1px solid #304054;isolation:isolate;overflow:hidden}
+.hero-system::before{content:'';position:absolute;left:-14%;top:0;width:55%;height:100%;background:radial-gradient(ellipse at left center,#205eaf1e,transparent 73%);z-index:-1;pointer-events:none}
+.hero-system .boot-in{display:flex;flex-direction:column;gap:21px;min-width:0;width:100%}
+.hero-system .boot-caption,.hero-system .boot-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;font:500 10px/1.5 'Space Grotesk',Arial,sans-serif;letter-spacing:.12em;color:#8FA8C4;text-transform:uppercase}
+.hero-system .boot-caption span:last-child{color:#6DA6E5}
+.hero-system .boot-word{font:600 clamp(60px,7.65vw,111px)/.96 'Space Grotesk',Arial,sans-serif;letter-spacing:-.077em;margin:8px 0 12px;text-wrap:balance;overflow-wrap:normal}
+.hero-system .boot-word i{color:var(--blue);font-style:normal}
+.hero-system .boot-bar{height:2px;width:100%;overflow:hidden;background:#263448}
+.hero-system .boot-fill{display:block;height:100%;width:100%;background:var(--blue);box-shadow:0 0 22px #5dabff77;transform-origin:left;transform:scaleX(0);will-change:transform}
+.hero-system .boot-foot{gap:20px}
+.hero-system .boot-foot .boot-count{font-variant-numeric:tabular-nums;color:#EAF4FF;min-width:3ch;text-align:right}
+@media(max-width:1100px){.hero-system .boot-word{font-size:clamp(54px,7.2vw,84px)}}
+@media(max-width:760px){.hero-system{margin-bottom:24px;padding:22px 0 25px}.hero-system .boot-word{font-size:clamp(53px,10.6vw,80px);margin:15px 0 12px}.hero-system .boot-in{gap:18px}}
+@media(max-width:450px){.hero-system .boot-word{font-size:clamp(48px,11.5vw,62px)}.hero-system .boot-caption,.hero-system .boot-foot{font-size:9px;letter-spacing:.07em}}
 .page-progress{position:fixed;inset:0 0 auto;height:2px;z-index:150;pointer-events:none}
 .page-progress span{display:block;height:100%;width:100%;background:var(--blue);transform-origin:left;transform:scaleX(0);will-change:transform}
 .section-indicator{position:fixed;right:19px;top:50%;transform:translateY(-50%);z-index:23;display:none;flex-direction:column;align-items:center;gap:12px;font:600 10px 'Space Grotesk',Arial,sans-serif;color:#5B7087;pointer-events:none}
@@ -275,11 +278,11 @@ dialog::backdrop{background:#01050bba;backdrop-filter:blur(6px)}
 .questions details{transition:background .25s,padding-left .3s}
 .questions details[open]{padding-left:10px;background:#14223866}
 @media(min-width:1180px){.section-indicator{display:flex}}
-@media(max-width:760px){.hero-live{margin-top:17px;font-size:13px}.strip-motion{min-height:54px}.strip-segment{gap:20px;padding-right:20px}.timeline:before,.timeline:after{left:0}.timeline{padding-left:15px}.boot-in{width:calc(100% - 42px)}}
-@media(max-width:450px){.hero-live{margin-top:15px}.hero-live-prefix{display:none}.boot-word{font-size:clamp(38px,12vw,52px)}.boot-caption,.boot-foot{font-size:9px;letter-spacing:.1em}}
+@media(max-width:760px){.hero-live{margin-top:17px;font-size:13px}.strip-motion{min-height:54px}.strip-segment{gap:20px;padding-right:20px}.timeline:before,.timeline:after{left:0}.timeline{padding-left:15px}}
+@media(max-width:450px){.hero-live{margin-top:15px}.hero-live-prefix{display:none}}
 @media(prefers-reduced-motion:reduce){
-.intro-active .boot-screen,.boot-screen{display:none!important}
-.boot-fill,.page-progress span,.strip-track,.type-caret{animation:none!important;transition:none!important}
+
+.hero-system .boot-fill,.page-progress span,.strip-track,.type-caret{animation:none!important;transition:none!important}
 .strip-track{transform:none}.strip-segment[aria-hidden=true]{display:none}
 .hero-label,.hero h1,.hero-headline,.hero-live,.hero-buttons,.hero-meta,.portrait{animation:none!important}
 .motion .reveal,.motion .skill.reveal{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
@@ -288,7 +291,6 @@ dialog::backdrop{background:#01050bba;backdrop-filter:blur(6px)}
 </style>
 </head>
 <body>
-<div class="boot-screen" aria-hidden="true"><div class="boot-in"><div class="boot-caption"><span>YARIGALLO / DIGITAL SYSTEMS</span><span>IT — 2026</span></div><div class="boot-word">Dare forma<br>alle <i>soluzioni.</i></div><div class="boot-bar"><div class="boot-fill"></div></div><div class="boot-foot">inizializzazione <span class="boot-count">000</span></div></div></div>
 <div class="page-progress" aria-hidden="true"><span></span></div>
 <div class="section-indicator" aria-hidden="true"><span class="section-indicator-count">01</span><span class="section-indicator-rule"></span><span>06</span></div>
 
@@ -304,7 +306,14 @@ dialog::backdrop{background:#01050bba;backdrop-filter:blur(6px)}
 <section class="hero container" id="inizio" aria-labelledby="hero-title">
  <div class="hero-copy">
   <div class="hero-label"><i class="live-led" aria-hidden="true"></i><span class="overline">Innovation & Digital Solutions Specialist</span></div>
-  <h1 id="hero-title">Christian<span>Yari <span class="hero-name-bottom">Gallo<span class="blu">.</span></span></span></h1>
+  <div class="hero-system" aria-label="Dare forma alle soluzioni">
+   <div class="boot-in">
+    <div class="boot-caption"><span>YARIGALLO / DIGITAL SYSTEMS</span><span>IN MOVIMENTO</span></div>
+    <h1 id="hero-title" class="boot-word">Dare forma<br>alle <i>soluzioni.</i></h1>
+    <div class="boot-bar" aria-hidden="true"><span class="boot-fill"></span></div>
+    <div class="boot-foot"><span class="hero-phase" aria-hidden="true">01 / ASCOLTO</span><span class="boot-count" aria-hidden="true">000</span></div>
+   </div>
+  </div>
   <div class="hero-headline"><p><strong>La tecnologia. Finalmente semplice.</strong><br>Affianco imprese ed enti per trasformare problemi reali in soluzioni digitali, organizzative e formative che funzionano.</p></div>
   <div class="hero-live" aria-label="Tecnologie applicate: AI, software, hardware e formazione"><span class="hero-live-prefix" aria-hidden="true">/</span><span class="hero-live-text" aria-hidden="true">AI che lavora davvero.</span><span class="type-caret" aria-hidden="true"></span></div><div class="hero-buttons"><a class="btn btn--primary" href="#progetti">Esplora i progetti <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a><a class="btn" href="#contatti">Raccontami la tua esigenza <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a></div>
   <div class="hero-meta"><span>PROBLEMA → SOLUZIONE</span><span>01 / 06 · SCOPRI ↓</span></div>
@@ -355,30 +364,43 @@ document.querySelector('#dialog-close').addEventListener('click',()=>dialog.clos
 dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});
 document.querySelector('#appointment-form').addEventListener('submit',event=>{event.preventDefault();const note=document.querySelector('#form-status');if(!SETTINGS.email||!SETTINGS.privacyPublished){note.textContent='Modulo non ancora attivo: mancano email professionale e informativa privacy. Nessun dato è stato inviato.';return;}note.textContent='Questa versione è una dimostrazione: per inviare la richiesta sarà necessario configurare il servizio di raccolta dati.';});
 
-/* Motion art direction v3.1 — opt-in by capability, input type and motion preference */
+/* Motion art direction v3.2 — opt-in by capability, input type and motion preference */
 (function(){
   const motionReduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $=(q,root=document)=>root.querySelector(q), $$=(q,root=document)=>Array.from(root.querySelectorAll(q));
-  const boot=$('.boot-screen');
-  if(!boot)return;
-  let frame=0;
-  function closeBoot(){
-    document.documentElement.classList.remove('intro-active');
-    boot.classList.add('is-leaving');
-    try{sessionStorage.setItem('yg_intro_v31','done')}catch(e){}
-    window.setTimeout(()=>boot.remove(),800);
-  }
-  if(document.documentElement.classList.contains('intro-active')&&!motionReduce){
-    const bar=$('.boot-fill',boot),num=$('.boot-count',boot);
-    const started=performance.now();
-    const anim=(now)=>{
-      const value=Math.min(100,Math.round((now-started)/8));
-      bar.style.width=value+'%'; num.textContent=String(value).padStart(3,'0');
-      if(value<100){frame=requestAnimationFrame(anim)}else{window.setTimeout(closeBoot,160)}
+  // The former entrance sequence is now a continuously visible hero motif.
+  // Never cover the page or simulate a pending load.
+  const system=$('.hero-system');
+  if(system){
+    const fill=$('.boot-fill',system), count=$('.boot-count',system), phase=$('.hero-phase',system);
+    const phases=['01 / ASCOLTO','02 / ANALISI','03 / PROGETTO','04 / SOLUZIONE'];
+    const cycle=8800, active=7100;
+    let origin=performance.now(), visible=true, running=false, last=0;
+    const paint=(ratio)=>{
+      const value=Math.max(0,Math.min(1,ratio));
+      fill.style.transform='scaleX('+value.toFixed(4)+')';
+      count.textContent=String(Math.round(value*100)).padStart(3,'0');
+      phase.textContent=phases[Math.min(3,Math.floor(value*4))];
     };
-    frame=requestAnimationFrame(anim);
-    window.setTimeout(()=>{if(document.documentElement.classList.contains('intro-active')){cancelAnimationFrame(frame);closeBoot()}},1800);
-  }else{boot.remove()}
+    if(motionReduce){paint(1)}
+    else{
+      const tick=(now)=>{
+        if(!visible||document.hidden){running=false;return}
+        if(now-last>45){
+          const time=(now-origin)%cycle;
+          paint(time>=active?1:time/active);
+          last=now;
+        }
+        requestAnimationFrame(tick);
+      };
+      const resume=()=>{if(!running&&visible&&!document.hidden){running=true;requestAnimationFrame(tick)}};
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;resume()},{threshold:0.03}).observe(system);
+      }
+      document.addEventListener('visibilitychange',resume,{passive:true});
+      resume();
+    }
+  }
   const progress=$('.page-progress span'),counter=$('.section-indicator-count'),header=$('.header');
   const sections=['inizio','chi-sono','competenze','ai','progetti','percorso','contatti'].map(id=>document.getElementById(id)).filter(Boolean);
   const timeline=$('.timeline');
