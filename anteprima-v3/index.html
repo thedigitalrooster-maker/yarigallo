@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>
+/* v3.5: incoming shared URLs always open the hero. */
+try {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+} catch (_) {}
+</script>
 <meta name="theme-color" content="#090D13">
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="yarigallo — Christian Yari Gallo. Tecnologia semplice, AI applicata, software, hardware e formazione per imprese ed enti.">
@@ -372,6 +379,8 @@ dialog::backdrop{background:#01050bba;backdrop-filter:blur(6px)}
 #percorso[data-contrast="light"] .timeline{border-top-color:#B5C6D5}
 #percorso[data-contrast="light"] .section-tag .right{color:#486078}
 @media(prefers-reduced-motion:reduce){.hero-type-line.is-typing::after{animation:none!important;opacity:0}}
+
+html.opening-hero{scroll-behavior:auto!important;overflow-anchor:none}
 </style>
 </head>
 <body>
@@ -439,9 +448,30 @@ dialog::backdrop{background:#01050bba;backdrop-filter:blur(6px)}
 const SETTINGS={phone:'',whatsapp:'',email:'',privacyPublished:false};
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
 if(!reduced.matches && 'IntersectionObserver' in window){document.documentElement.classList.add('motion');const observer=new IntersectionObserver(items=>items.forEach(item=>{if(item.isIntersecting){item.target.classList.add('visible');observer.unobserve(item.target)}}),{threshold:0.07,rootMargin:'0px 0px 35px 0px'});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));}
-if('scrollRestoration' in history)history.scrollRestoration='manual';
-function startAtHero(){if(!location.hash)window.scrollTo({top:0,left:0,behavior:'instant'});}
-window.addEventListener('pageshow',startAtHero);window.addEventListener('load',()=>requestAnimationFrame(startAtHero));
+/* v3.5: protect initial scroll, without fighting deliberate user navigation. */
+(function(){
+  const root=document.documentElement;
+  let opening=true, timers=[];
+  function release(){opening=false;timers.forEach(clearTimeout);timers=[];root.classList.remove('opening-hero');}
+  function reset(){if(!opening)return;window.scrollTo({top:0,left:0,behavior:'instant'});}
+  function settle(){if(!opening)return;reset();requestAnimationFrame(reset);[80,250,650,1100].forEach(ms=>timers.push(setTimeout(reset,ms)));timers.push(setTimeout(release,1250));}
+  root.classList.add('opening-hero');reset();
+  window.addEventListener('load',settle,{once:true});
+  window.addEventListener('pageshow',e=>{if(!e.persisted)settle();});
+  ['touchstart','pointerdown','wheel','keydown'].forEach(type=>window.addEventListener(type,release,{once:true,passive:true,capture:true}));
+  if(document.readyState==='complete')settle();
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href^="#"]');
+    if(!a||e.defaultPrevented||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+    const id=a.getAttribute('href').slice(1),target=document.getElementById(id);
+    if(!target)return;
+    e.preventDefault();release();
+    try{history.replaceState(history.state,'',location.pathname+location.search);}catch(_){}
+    if(id==='inizio'||id==='main')window.scrollTo({top:0,left:0,behavior:'instant'});
+    else target.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+    if(a.classList.contains('skip')){target.setAttribute('tabindex','-1');target.focus({preventScroll:true});}
+  });
+})();
 const menuButton=document.querySelector('.menu-button');const menu=document.querySelector('#mobile-nav');
 function setMenu(open){menu.hidden=!open;menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Chiudi menu':'Apri menu');}
 menuButton.addEventListener('click',()=>setMenu(menu.hidden));
